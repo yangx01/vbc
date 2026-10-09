@@ -235,12 +235,12 @@ async function start(){
   }
   startBtn.disabled=true; startBtn.textContent='⏳ 加载识别模型…';
   try{
-    const vision=await import('https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/vision_bundle.mjs');
+    const vision=await import('https://registry.npmmirror.com/@mediapipe/tasks-vision/0.10.14/files/vision_bundle.mjs');
     const fileset=await vision.FilesetResolver.forVisionTasks(
-      'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/wasm');
+      'https://registry.npmmirror.com/@mediapipe/tasks-vision/0.10.14/files/wasm');
     poseLandmarker=await vision.PoseLandmarker.createFromOptions(fileset,{
       baseOptions:{ modelAssetPath:
-        'https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_lite/float16/1/pose_landmarker_lite.task',
+        './pose_landmarker_lite.task',
         delegate:'GPU' }, runningMode:'VIDEO', numPoses:1 });
   }catch(e){ startBtn.textContent='❌ 模型加载失败（需联网首次）';
     statusEl.textContent='错误：'+e.message; startBtn.disabled=false; return; }
